@@ -7,7 +7,7 @@ type ShoppingCart struct {
 	// prices []int
 	//
 
-	price int
+	prices []int
 }
 
 func NewShoppingCart() *ShoppingCart {
@@ -15,17 +15,28 @@ func NewShoppingCart() *ShoppingCart {
 }
 
 func (c *ShoppingCart) Add(price int) {
-	c.price = price
+	c.prices = append(c.prices, price)
 }
 
 func (c *ShoppingCart) NumberOfProducts() int {
-	return 1
+	return len(c.prices)
 }
 
 func (c *ShoppingCart) CalculateTotalPrice() int {
-	return c.price
+	var sum = 0
+	for _, price := range c.prices {
+		sum += price
+	}
+	return sum
 }
 
 func (c *ShoppingCart) HasDiscount() bool {
-	return c.price >= 100
+	var hasDiscount = false
+	for _, price := range c.prices {
+		if price >= 100 {
+			hasDiscount = true
+			break
+		}
+	}
+	return hasDiscount
 }
